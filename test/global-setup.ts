@@ -7,7 +7,7 @@ import {
 } from "viem";
 import { spawn } from "child_process";
 import waitOn from "wait-on";
-import { base } from "viem/chains";
+import { hardhat } from "viem/chains";
 
 import SecuredLineABI from "../src/contracts/abis/SecuredLine.json";
 
@@ -37,6 +37,8 @@ export default async function () {
       String(FORK_BLOCK),
       "--port",
       String(PORT),
+      "--chain-id",
+      "31337",
       "--silent",
     ],
     { stdio: "inherit" },
@@ -48,16 +50,16 @@ export default async function () {
 
   console.log("Updating line borrower to be the test wallet...");
 
-  const publicC = createPublicClient({ chain: base, transport: http(RPC) });
+  const client = createPublicClient({ chain: hardhat, transport: http(RPC) });
 
-  await publicC.request({
+  await client.request({
     method: "anvil_impersonateAccount",
     params: [OLD_BORROWER],
   });
 
   const oldBorrowerWallet = createWalletClient({
     transport: http(RPC),
-    chain: base,
+    chain: hardhat,
     account: OLD_BORROWER as Address,
   });
 
@@ -69,7 +71,7 @@ export default async function () {
 
   const txnHash = await securedLine.write.updateBorrower([TEST_ADDRESS]);
 
-  await publicC.waitForTransactionReceipt({ hash: txnHash });
+  await client.waitForTransactionReceipt({ hash: txnHash });
 
   const borrower = await securedLine.read.borrower();
   if (borrower !== TEST_ADDRESS) {
@@ -78,7 +80,7 @@ export default async function () {
     );
   }
 
-  await publicC.request({
+  await client.request({
     method: "anvil_mine",
     params: [],
   });

@@ -133,12 +133,6 @@ export class SecuredLine {
     amount: bigint;
     to?: Hex;
   }) {
-    console.log("Borrowing", {
-      positionId,
-      amount,
-      to: to ?? this.walletAddress,
-    });
-
     const txnHash = await this.contract.write.borrow([
       positionId,
       amount,
