@@ -29,7 +29,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "build": "tsup src/index.ts --format esm,cjs --dts --minify",
-    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "lint": "eslint \"src/**/*.{ts,tsx}\" \"test/**/*.ts\"",
     "prepublishOnly": "yarn clean && yarn lint && yarn test && yarn build",
     "test": "vitest"
   },
