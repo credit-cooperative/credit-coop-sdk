@@ -22,11 +22,21 @@
  * ```
  */
 
-import { getContract, createWalletClient, http, type Hex, type GetContractReturnType, type WalletClient, type Address, createPublicClient, type PublicClient } from 'viem';
-import * as Chains from 'viem/chains';
+import {
+  type Hex,
+  type GetContractReturnType,
+  type WalletClient,
+  type Address,
+  getContract,
+  createWalletClient,
+  http,
+  createPublicClient,
+  type PublicClient,
+} from "viem";
+import * as Chains from "viem/chains";
 
-import { privateKeyToAccount } from 'viem/accounts'
-import SecuredLineABI from './contracts/abis/SecuredLine.json';
+import { privateKeyToAccount } from "viem/accounts";
+import SecuredLineABI from "./contracts/abis/SecuredLine.json";
 
 type ChainId = keyof typeof Chains;
 
@@ -34,7 +44,7 @@ type SecuredLineInstance = GetContractReturnType<
   typeof SecuredLineABI,
   { wallet: WalletClient },
   Hex
->
+>;
 
 export class SecuredLine {
   private contract: SecuredLineInstance;
@@ -54,7 +64,17 @@ export class SecuredLine {
    *
    * @throws If `chainId` does not exist in `viem/chains`.
    */
-  constructor({ address, privateKey, chainId, rpcUrl }: { address: Hex, privateKey: Hex, chainId: ChainId, rpcUrl: string }) {
+  constructor({
+    address,
+    privateKey,
+    chainId,
+    rpcUrl,
+  }: {
+    address: Hex;
+    privateKey: Hex;
+    chainId: ChainId;
+    rpcUrl: string;
+  }) {
     const chain = Chains[chainId];
 
     const account = privateKeyToAccount(privateKey);
@@ -63,7 +83,7 @@ export class SecuredLine {
       account,
       chain,
       transport: http(chain.rpcUrls.default.http[0]),
-    })
+    });
 
     this.publicClient = createPublicClient({
       chain,
@@ -74,10 +94,9 @@ export class SecuredLine {
       address,
       abi: SecuredLineABI,
       client: {
-        wallet: this.walletClient
+        wallet: this.walletClient,
       },
-    })
-
+    });
   }
 
   /**
@@ -105,15 +124,33 @@ export class SecuredLine {
    * });
    * ```
    */
-  async borrow({ positionId, amount, to }: { positionId: number, amount: bigint, to?: Hex }) {
-    const txnHash = await this.contract.write.borrow(
-      [positionId, amount, to ?? this.walletAddress]
-    )
+  async borrow({
+    positionId,
+    amount,
+    to,
+  }: {
+    positionId: number;
+    amount: bigint;
+    to?: Hex;
+  }) {
+    console.log("Borrowing", {
+      positionId,
+      amount,
+      to: to ?? this.walletAddress,
+    });
 
-    const result = await this.publicClient.waitForTransactionReceipt({ hash: txnHash })
+    const txnHash = await this.contract.write.borrow([
+      positionId,
+      amount,
+      to ?? this.walletAddress,
+    ]);
 
-    if (result.status !== 'success') {
-      throw new Error(`Transaction failed: ${result.transactionHash}`)
+    const result = await this.publicClient.waitForTransactionReceipt({
+      hash: txnHash,
+    });
+
+    if (result.status !== "success") {
+      throw new Error(`Transaction failed: ${result.transactionHash}`);
     }
 
     return result.transactionHash;

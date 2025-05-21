@@ -132,3 +132,5 @@ dist
 .yarn
 .pnp.*
 
+# vscode
+.vscode/*
