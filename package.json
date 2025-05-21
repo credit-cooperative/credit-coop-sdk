@@ -1,0 +1,54 @@
+{
+  "name": "credit-coop-sdk",
+  "version": "0.1.0",
+  "description": "Type-safe SDK for Credit Coop smart contracts",
+  "author": "Credit Cooperative",
+  "repository": "git@github.com:credit-cooperative/credit-coop-sdk.git",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/",
+    "src/contracts/abi/"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=22"
+  },
+  "peerDependencies": {
+    "viem": "^2.30.0"
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "tsup src/index.ts --format esm,cjs --dts --minify",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "prepublishOnly": "yarn clean && yarn lint && yarn test && yarn build",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.27.0",
+    "@nomicfoundation/hardhat-viem": "^2.0.6",
+    "@types/wait-on": "^5.3.4",
+    "dotenv": "^16.5.0",
+    "eslint": "^9.27.0",
+    "eslint-config-prettier": "^10.1.5",
+    "hardhat": "^2.24.0",
+    "prettier": "^3.5.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.32.1",
+    "viem": "^2.30.0",
+    "vite": "^6.3.5",
+    "vitest": "^3.1.4",
+    "wait-on": "^8.0.3"
+  },
+  "packageManager": "yarn@4.9.1"
+}
