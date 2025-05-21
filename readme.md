@@ -16,10 +16,10 @@ A type‑safe JavaScript / TypeScript client for interacting with Credit Coop�
 
 ```bash
 # Yarn
-yarn add @credit-coop/secured-line-sdk viem
+yarn add @credit-coop/credit-coop-sdk viem
 
 # npm
-npm i @credit-coop/secured-line-sdk viem
+npm i @credit-coop/credit-coop-sdk viem
 ```
 
 ## Quick Start
