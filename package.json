@@ -17,7 +17,7 @@
   },
   "files": [
     "dist/",
-    "src/contracts/abi/"
+    "src/contracts/abis/"
   ],
   "sideEffects": false,
   "engines": {
