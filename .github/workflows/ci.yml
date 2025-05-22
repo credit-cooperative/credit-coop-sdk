@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node: ['18', '20', '22']
+        node: ['22'] # Can add more node versions here if needed, e.g. ['18', '20', '22']
 
     steps:
       - name: ⬇️  Checkout repo
