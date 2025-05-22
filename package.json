@@ -28,12 +28,13 @@
     "build": "tsup src/index.ts --format esm,cjs --dts --minify",
     "lint": "eslint \"src/**/*.{ts,tsx}\" \"test/**/*.ts\"",
     "prepublishOnly": "yarn clean && yarn lint && yarn test && yarn build",
-    "test": "vitest"
+    "test": "vitest --coverage"
   },
   "devDependencies": {
     "@eslint/js": "^9.27.0",
     "@nomicfoundation/hardhat-viem": "^2.0.6",
     "@types/wait-on": "^5.3.4",
+    "@vitest/coverage-v8": "^3.1.4",
     "dotenv": "^16.5.0",
     "eslint": "^9.27.0",
     "eslint-config-prettier": "^10.1.5",

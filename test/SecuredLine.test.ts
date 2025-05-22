@@ -18,4 +18,20 @@ describe("SecuredLine.borrow()", () => {
 
     expect(txHash).toMatch(/^0x[a-fA-F0-9]{64}$/);
   });
+
+  it("sends a borrow tx that fails with NoLiquidity error", async () => {
+    const line = new SecuredLine({
+      address: LINE_ADDRESS,
+      privateKey: TEST_SECRET,
+      chainId: "hardhat",
+      rpcUrl: RPC,
+    });
+
+    expect(async () => {
+      await line.borrow({
+        positionId: 8,
+        amount: 100_000_000_000n,
+      });
+    }).rejects.toThrowError();
+  });
 });

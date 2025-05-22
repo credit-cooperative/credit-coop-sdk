@@ -143,10 +143,6 @@ export class SecuredLine {
       hash: txnHash,
     });
 
-    if (result.status !== "success") {
-      throw new Error(`Transaction failed: ${result.transactionHash}`);
-    }
-
     return result.transactionHash;
   }
 }
