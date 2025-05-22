@@ -34,6 +34,11 @@ jobs:
       - name: 📦 Install deps
         run: yarn install --immutable
 
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+
       - name: 🔍 Lint (ESLint + Prettier)
         run: yarn lint
 
