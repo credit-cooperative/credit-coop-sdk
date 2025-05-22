@@ -23,9 +23,6 @@
   "engines": {
     "node": ">=22"
   },
-  "peerDependencies": {
-    "viem": "^2.30.0"
-  },
   "scripts": {
     "clean": "rimraf dist",
     "build": "tsup src/index.ts --format esm,cjs --dts --minify",
@@ -41,16 +38,19 @@
     "eslint": "^9.27.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-prettier": "^5.4.0",
+    "execa": "^9.5.3",
     "hardhat": "^2.24.0",
     "prettier": "^3.5.3",
     "ts-node": "^10.9.2",
     "tsup": "^8.5.0",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.32.1",
-    "viem": "^2.30.0",
     "vitest": "^3.1.4",
     "wait-on": "^8.0.3"
   },
   "packageManager": "yarn@4.9.1",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "viem": "^2.30.0"
+  }
 }

@@ -10,16 +10,15 @@ A type‑safe JavaScript / TypeScript client for interacting with Credit Coop�
 | ----------- | ------- |
 | Node        | ≥ 22    |
 | TypeScript  | ≥ 5     |
-| Viem (peer) | ≥ 2.30  |
 
 ## Installation
 
 ```bash
 # Yarn
-yarn add @credit-cooperative/credit-coop-sdk viem
+yarn add @credit-cooperative/credit-coop-sdk
 
 # npm
-npm i @credit-cooperative/credit-coop-sdk viem
+npm i @credit-cooperative/credit-coop-sdk
 ```
 
 ## Quick Start
