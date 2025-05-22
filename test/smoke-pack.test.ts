@@ -24,7 +24,6 @@ describe("published tarball works in a fresh project", () => {
         {
           name: "consumer",
           private: true,
-          type: "module",
           dependencies: {
             "@credit-cooperative/credit-coop-sdk": tgzPath,
           },

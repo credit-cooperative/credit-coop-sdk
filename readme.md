@@ -24,7 +24,7 @@ npm i @credit-cooperative/credit-coop-sdk
 ## Quick Start
 
 ```ts
-import { SecuredLine } from '@credit-coop/secured-line-sdk';
+import { SecuredLine } from '@credit-cooperative/credit-coop-sdk';
 
 const line = new SecuredLine({
   address:   '0x…',
