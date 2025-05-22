@@ -24,6 +24,11 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: 'yarn'
 
+      - name: ⚙️  Activate Yarn 4 via Corepack
+        run: |
+          corepack enable
+          corepack prepare yarn@4.9.1 --activate
+
       - name: 📦 Install deps
         run: yarn install --immutable
 
