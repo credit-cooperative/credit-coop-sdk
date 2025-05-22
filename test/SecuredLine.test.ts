@@ -27,11 +27,11 @@ describe("SecuredLine.borrow()", () => {
       rpcUrl: RPC,
     });
 
-    expect(async () => {
+    await expect(async () => {
       await line.borrow({
         positionId: 8,
         amount: 100_000_000_000n,
       });
-    }).rejects.toThrowError();
+    }).rejects.toThrowError(/NoLiquidity/);
   });
 });
