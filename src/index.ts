@@ -42,7 +42,7 @@ type ChainId = keyof typeof Chains;
 
 type SecuredLineInstance = GetContractReturnType<
   typeof SecuredLineABI,
-  { wallet: WalletClient },
+  { wallet: WalletClient; public: PublicClient },
   Hex
 >;
 
@@ -95,6 +95,7 @@ export class SecuredLine {
       abi: SecuredLineABI,
       client: {
         wallet: this.walletClient,
+        public: this.publicClient,
       },
     });
   }
@@ -144,5 +145,27 @@ export class SecuredLine {
     });
 
     return result.transactionHash;
+  }
+
+  /**
+   * Retrieves an array of open position IDs from the contract.
+   *
+   * This method first reads the count of open positions from the contract by calling
+   * the `counts` method, then iterates over each index to request the corresponding
+   * position ID using the `ids` function.
+   *
+   * @returns {Promise<bigint[]>} A promise that resolves to an array of position IDs represented as bigints.
+   */
+  async getOpenPositionIds(): Promise<bigint[]> {
+    const [openPositionCount] = (await this.contract.read.counts()) as bigint[];
+    const promises: Promise<bigint>[] = [];
+
+    for (let i = 0; i < openPositionCount; i++) {
+      promises.push(this.contract.read.ids([i]) as Promise<bigint>);
+    }
+
+    const openPositionIds = await Promise.all(promises);
+
+    return openPositionIds;
   }
 }

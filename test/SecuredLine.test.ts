@@ -34,4 +34,17 @@ describe("SecuredLine.borrow()", () => {
       });
     }).rejects.toThrowError(/NoLiquidity/);
   });
+
+  it("correctly gets the open position IDs", async () => {
+    const line = new SecuredLine({
+      address: LINE_ADDRESS,
+      privateKey: TEST_SECRET,
+      chainId: "hardhat",
+      rpcUrl: RPC,
+    });
+
+    const positionIds = await line.getOpenPositionIds();
+
+    expect(positionIds).toEqual([8n]);
+  });
 });
