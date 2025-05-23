@@ -119,9 +119,9 @@ export class SecuredLine {
    * @example
    * ```ts
    * await line.borrow({
-   *   positionId: 2,
-   *   amount: 500_000n,
-   *   to: '0x1234…dead' as Hex,
+   *   positionId: 2n,
+   *   amount: 10_000_000_000n, // 10,000 USDC (6 decimals)
+   *   to: '0x1234…dead',
    * });
    * ```
    */

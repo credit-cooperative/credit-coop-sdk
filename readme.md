@@ -26,6 +26,7 @@ npm i @credit-cooperative/credit-coop-sdk
 ```ts
 import { SecuredLine } from '@credit-cooperative/credit-coop-sdk';
 
+// Initialize the SecuredLine interface
 const line = new SecuredLine({
   address:   '0x…',
   privateKey: process.env.PRIVATE_KEY,
@@ -33,7 +34,11 @@ const line = new SecuredLine({
   rpcUrl:    'https://base-mainnet.g.alchemy.com/v2/<API_KEY>',
 });
 
-await line.borrow({ positionId: 0, amount: 1_000_000n });
+// Fetch open position IDs
+const openPositionIds = await line.getOpenPositionIds();
+
+// Draw down 10,000 USDC from the first open credit position to the borrower wallet
+await line.borrow({ positionId: openPositionIds[0], amount: 10_000_000_000n });
 ```
 
 ---
