@@ -4,21 +4,21 @@
  *
  * @example
  * ```ts
- * import { SecuredLine } from '@credit-coop/sdk';
+ * import { SecuredLine } from '@credit-cooperative/credit-coop-sdk';
  *
+ * // Initialize the SecuredLine interface
  * const line = new SecuredLine({
- *   address:  '0xc4a54a88d278c6aDe87F295a105dF844cf072a50',
- *   privateKey: process.env.PRIVATE_KEY as Hex,
- *   chainId: 'mainnet',
- *   rpcUrl:  'https://eth.llamarpc.com',
+ *   address:   '0x…',
+ *   privateKey: process.env.PRIVATE_KEY,
+ *   chainId:   'base',
+ *   rpcUrl:    'https://base-mainnet.g.alchemy.com/v2/<API_KEY>',
  * });
  *
- * const txHash = await line.borrow({
- *   positionId: 0,
- *   amount: 1_000_000n,          // 1 USDC (6 decimals)
- * });
+ * // Fetch open position IDs
+ * const openPositionIds = await line.getOpenPositionIds();
  *
- * console.info(`Draw-down confirmed in tx ${txHash}`);
+ * // Draw down 10,000 USDC from the first open credit position to the borrower wallet
+ * await line.borrow({ positionId: openPositionIds[0], amount: 10_000_000_000n });
  * ```
  */
 
