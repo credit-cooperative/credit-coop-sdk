@@ -130,7 +130,7 @@ export class SecuredLine {
     amount,
     to,
   }: {
-    positionId: number;
+    positionId: bigint;
     amount: bigint;
     to?: Hex;
   }) {

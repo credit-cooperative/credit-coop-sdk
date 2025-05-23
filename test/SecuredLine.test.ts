@@ -12,7 +12,7 @@ describe("SecuredLine.borrow()", () => {
     });
 
     const txHash = await line.borrow({
-      positionId: 8,
+      positionId: 8n,
       amount: 1_000_000n,
     });
 
@@ -29,10 +29,26 @@ describe("SecuredLine.borrow()", () => {
 
     await expect(async () => {
       await line.borrow({
-        positionId: 8,
+        positionId: 8n,
         amount: 100_000_000_000n,
       });
     }).rejects.toThrowError(/NoLiquidity/);
+  });
+
+  it("sends a borrow tx that fails on an invalid position", async () => {
+    const line = new SecuredLine({
+      address: LINE_ADDRESS,
+      privateKey: TEST_SECRET,
+      chainId: "hardhat",
+      rpcUrl: RPC,
+    });
+
+    await expect(async () => {
+      await line.borrow({
+        positionId: 99999n,
+        amount: 100_000_000_000n,
+      });
+    }).rejects.toThrowError(/PositionIsClosed/);
   });
 
   it("correctly gets the open position IDs", async () => {
@@ -46,5 +62,23 @@ describe("SecuredLine.borrow()", () => {
     const positionIds = await line.getOpenPositionIds();
 
     expect(positionIds).toEqual([8n]);
+  });
+
+  it("borrows using the position ID from getOpenPositionIds()", async () => {
+    const line = new SecuredLine({
+      address: LINE_ADDRESS,
+      privateKey: TEST_SECRET,
+      chainId: "hardhat",
+      rpcUrl: RPC,
+    });
+
+    const positionIds = await line.getOpenPositionIds();
+    const positionId = positionIds[0];
+    const txHash = await line.borrow({
+      positionId,
+      amount: 1_000_000n,
+    });
+
+    expect(txHash).toMatch(/^0x[a-fA-F0-9]{64}$/);
   });
 });
