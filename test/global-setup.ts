@@ -9,7 +9,7 @@ import { spawn } from "child_process";
 import waitOn from "wait-on";
 import { hardhat } from "viem/chains";
 
-import SecuredLineABI from "../src/contracts/abis/SecuredLine.json";
+import SecuredLineABI from "../src/contracts/abis/SecuredLine.ts";
 
 import {
   ALCHEMY_BASE_API_KEY,

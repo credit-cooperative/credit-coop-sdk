@@ -2,14 +2,18 @@ import { describe, expect, it } from "vitest";
 import { SecuredLine } from "../src";
 import { LINE_ADDRESS, RPC, TEST_SECRET } from "./constants";
 
+const initLine = () => {
+  return new SecuredLine({
+    address: LINE_ADDRESS,
+    privateKey: TEST_SECRET,
+    chainId: "hardhat",
+    rpcUrl: RPC,
+  });
+};
+
 describe("SecuredLine.borrow()", () => {
   it("sends a borrow tx that succeeds", async () => {
-    const line = new SecuredLine({
-      address: LINE_ADDRESS,
-      privateKey: TEST_SECRET,
-      chainId: "hardhat",
-      rpcUrl: RPC,
-    });
+    const line = initLine();
 
     const txHash = await line.borrow({
       positionId: 8n,
@@ -20,12 +24,7 @@ describe("SecuredLine.borrow()", () => {
   });
 
   it("sends a borrow tx that fails with NoLiquidity error", async () => {
-    const line = new SecuredLine({
-      address: LINE_ADDRESS,
-      privateKey: TEST_SECRET,
-      chainId: "hardhat",
-      rpcUrl: RPC,
-    });
+    const line = initLine();
 
     await expect(async () => {
       await line.borrow({
@@ -36,12 +35,7 @@ describe("SecuredLine.borrow()", () => {
   });
 
   it("sends a borrow tx that fails on an invalid position", async () => {
-    const line = new SecuredLine({
-      address: LINE_ADDRESS,
-      privateKey: TEST_SECRET,
-      chainId: "hardhat",
-      rpcUrl: RPC,
-    });
+    const line = initLine();
 
     await expect(async () => {
       await line.borrow({
@@ -52,12 +46,7 @@ describe("SecuredLine.borrow()", () => {
   });
 
   it("correctly gets the open position IDs", async () => {
-    const line = new SecuredLine({
-      address: LINE_ADDRESS,
-      privateKey: TEST_SECRET,
-      chainId: "hardhat",
-      rpcUrl: RPC,
-    });
+    const line = initLine();
 
     const positionIds = await line.getOpenPositionIds();
 
@@ -65,12 +54,7 @@ describe("SecuredLine.borrow()", () => {
   });
 
   it("borrows using the position ID from getOpenPositionIds()", async () => {
-    const line = new SecuredLine({
-      address: LINE_ADDRESS,
-      privateKey: TEST_SECRET,
-      chainId: "hardhat",
-      rpcUrl: RPC,
-    });
+    const line = initLine();
 
     const positionIds = await line.getOpenPositionIds();
     const positionId = positionIds[0];
@@ -80,5 +64,16 @@ describe("SecuredLine.borrow()", () => {
     });
 
     expect(txHash).toMatch(/^0x[a-fA-F0-9]{64}$/);
+  });
+
+  it("pulls full position data", async () => {
+    const line = initLine();
+
+    const positionIds = await line.getOpenPositionIds();
+    const positionId = positionIds[0];
+    const position = await line.getPosition(positionId);
+    expect(position).toBeDefined();
+    expect(position.decimals).toBe(6);
+    // TODO: add more checks
   });
 });

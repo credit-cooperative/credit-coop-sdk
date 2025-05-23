@@ -36,7 +36,7 @@ import {
 import * as Chains from "viem/chains";
 
 import { privateKeyToAccount } from "viem/accounts";
-import SecuredLineABI from "./contracts/abis/SecuredLine.json";
+import SecuredLineABI from "./contracts/abis/SecuredLine";
 
 type ChainId = keyof typeof Chains;
 
@@ -134,6 +134,7 @@ export class SecuredLine {
     amount: bigint;
     to?: Hex;
   }) {
+    // @ts-expect-error Need to fix typing with viem, it shouldn't expect options
     const txnHash = await this.contract.write.borrow([
       positionId,
       amount,
@@ -157,15 +158,20 @@ export class SecuredLine {
    * @returns {Promise<bigint[]>} A promise that resolves to an array of position IDs represented as bigints.
    */
   async getOpenPositionIds(): Promise<bigint[]> {
-    const [openPositionCount] = (await this.contract.read.counts()) as bigint[];
+    const [openPositionCount] = await this.contract.read.counts();
     const promises: Promise<bigint>[] = [];
 
-    for (let i = 0; i < openPositionCount; i++) {
-      promises.push(this.contract.read.ids([i]) as Promise<bigint>);
+    for (let i = 0n; i < openPositionCount; i += 1n) {
+      promises.push(this.contract.read.ids([i]));
     }
 
     const openPositionIds = await Promise.all(promises);
 
     return openPositionIds;
+  }
+
+  async getPosition(positionId: bigint) {
+    const position = await this.contract.read.getCreditPosition([positionId]);
+    return position;
   }
 }
