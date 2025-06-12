@@ -169,6 +169,24 @@ export class SecuredLine {
     return openPositionIds;
   }
 
+  /**
+   * Retrieves the details of a secured credit position using the provided position ID.
+   *
+   * @param positionId - A unique bigint representing the credit position ID. Can be obtained from `getOpenPositionIds()`.
+   *
+   * @returns A promise that resolves to an object containing the following properties:
+   *  - deposit:  The total liquidity provided by a Lender as a bigint.
+   *  - principal: The amount of a Lender's Deposit on a Line of Credit that has actually been drawn down by the Borrower (in Tokens)
+   *  - interestAccrued: Interest due by a Borrower but not yet repaid to the Line of Credit contract
+   *  - interestRepaid:  Interest repaid by a Borrower to the Line of Credit contract but not yet withdrawn by a Lender
+   *  - decimals: The number of decimals of the credit token as a number.
+   *  - token: The credit token address in hexadecimal format prefixed with '0x'.
+   *  - tokenId: The unique credit token ID as a bigint.
+   *  - isOpen: A boolean indicating if the credit position is currently open.
+   *  - isRestricted: A boolean indicating whether the token can be traded.
+   *  - earlyWithdrawalFee: The fee fee paid by lender for withdrawing deposit early in bps.
+   *  - deadline: The timestamp at which the position will be liquidatable as a bigint.
+   */
   async getPosition(positionId: bigint) {
     const position = await this.contract.read.getCreditPosition([positionId]);
     return position;
