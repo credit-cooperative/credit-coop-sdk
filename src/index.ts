@@ -113,8 +113,7 @@ export class SecuredLine {
    * @returns `Promise<Hex>` — the transaction hash **once the transaction is
    *          confirmed in the forked/local chain**.
    *
-   * @throws `Error` — If the transaction reverts or its receipt
-   *         has `status !== 'success'`.
+   * @throws `Error` — If the transaction reverts
    *
    * @example
    * ```ts
