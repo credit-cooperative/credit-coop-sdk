@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Type-safe SDK for Credit Coop smart contracts",
   "author": "Credit Cooperative",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/credit-cooperative/credit-coop-sdk.git"
@@ -54,7 +55,6 @@
     "wait-on": "^8.0.3"
   },
   "packageManager": "yarn@4.9.1",
-  "license": "MIT",
   "dependencies": {
     "viem": "^2.30.0"
   }

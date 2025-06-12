@@ -40,7 +40,3 @@ const openPositionIds = await line.getOpenPositionIds();
 // Draw down 10,000 USDC from the first open credit position to the borrower wallet
 await line.borrow({ positionId: openPositionIds[0], amount: 10_000_000_000n });
 ```
-
----
-
-MIT © Credit Coop 2025
