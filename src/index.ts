@@ -191,4 +191,23 @@ export class SecuredLine {
     const position = await this.contract.read.getCreditPosition([positionId]);
     return position;
   }
+
+  /**
+   * Retrieves the liquidity details for a specific position.
+   *
+   * This function reads the available assets for the given position ID from the smart contract and returns an object containing
+   * both the remaining assets available for borrowing or withdrawal and the claimable interest for that position.
+   *
+   * @param positionId - The unique identifier for the position, represented as a bigint.
+   * @returns An object containing:
+   *  - availableAssets: The assets available for borrowing or withdrawal.
+   *  - claimableInterest: The interest amount that can be claimed.
+   */
+  async getPositionLiquidity(positionId: bigint) {
+    const available = await this.contract.read.available([positionId]);
+    return {
+      availableAssets: available[0],
+      claimableInterest: available[1],
+    };
+  }
 }

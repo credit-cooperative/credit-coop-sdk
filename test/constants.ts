@@ -18,3 +18,4 @@ export const ALCHEMY_BASE_API_KEY = process.env.ALCHEMY_BASE_API_KEY;
 export const PORT = 8545;
 export const FORK_BLOCK = 30240953;
 export const RPC = `http://127.0.0.1:${PORT}`;
+export const USDC_TOKEN_ADDRESS = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";

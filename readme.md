@@ -24,19 +24,27 @@ npm i @credit-cooperative/credit-coop-sdk
 ## Quick Start
 
 ```ts
-import { SecuredLine } from '@credit-cooperative/credit-coop-sdk';
+import { SecuredLine } from "@credit-cooperative/credit-coop-sdk";
 
-// Initialize the SecuredLine interface
-const line = new SecuredLine({
-  address:   '0x…',
-  privateKey: process.env.PRIVATE_KEY,
-  chainId:   'base',
-  rpcUrl:    'https://base-mainnet.g.alchemy.com/v2/<API_KEY>',
-});
+async function main() {
+  // Initialize the SecuredLine interface
+  const line = new SecuredLine({
+    address: "0x…",
+    privateKey: process.env.PRIVATE_KEY,
+    chainId: "base",
+    rpcUrl: "https://base-mainnet.g.alchemy.com/v2/<API_KEY>",
+  });
 
-// Fetch open position IDs
-const openPositionIds = await line.getOpenPositionIds();
+  // Fetch open position IDs
+  const openPositionIds = await line.getOpenPositionIds();
 
-// Draw down 10,000 USDC from the first open credit position to the borrower wallet
-await line.borrow({ positionId: openPositionIds[0], amount: 10_000_000_000n });
+  // Get the amount of assets available to borrow for the first open credit position
+  const { availableAssets } = await line.getPositionLiquidity(openPositionIds[0]);
+
+  // Borrow the full amount from the first open credit position to the borrower wallet
+  await line.borrow({
+    positionId: openPositionIds[0],
+    amount: availableAssets,
+  });
+}
 ```
