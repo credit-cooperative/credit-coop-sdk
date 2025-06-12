@@ -1,5 +1,5 @@
 {
-  "name": "credit-coop-sdk",
+  "name": "@credit-cooperative/credit-coop-sdk",
   "version": "0.1.0",
   "description": "Type-safe SDK for Credit Coop smart contracts",
   "author": "Credit Cooperative",
