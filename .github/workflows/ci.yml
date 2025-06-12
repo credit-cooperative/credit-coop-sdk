@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node: ['22'] # Can add more node versions here if needed, e.g. ['18', '20', '22']
+
+    steps:
+      - name: ⬇️  Checkout repo
+        uses: actions/checkout@v4
+
+      - name: ⚙️  Activate Yarn 4 via Corepack
+        run: |
+          corepack enable
+          corepack prepare yarn@4.9.1 --activate
+
+      - name: ⎔  Set up Node ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'yarn'
+
+      - name: 📦 Install deps
+        run: yarn install --immutable
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+
+      - name: 🔍 Lint (ESLint + Prettier)
+        run: yarn lint
+
+      - name: 🛠  Build
+        run: yarn build
+
+      - name: ⚡️ Test & coverage
+        run: yarn test
+
+      - name: 📊 Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-node-${{ matrix.node }}
+          path: coverage
+          retention-days: 7
+
+env:
+  ALCHEMY_BASE_API_KEY: ${{ secrets.ALCHEMY_BASE_API_KEY }}
