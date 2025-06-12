@@ -64,6 +64,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@credit-cooperative/credit-coop-sdk@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@credit-cooperative/credit-coop-sdk@workspace:."
+  dependencies:
+    "@eslint/js": "npm:^9.27.0"
+    "@nomicfoundation/hardhat-viem": "npm:^2.0.6"
+    "@types/wait-on": "npm:^5.3.4"
+    "@vitest/coverage-v8": "npm:^3.1.4"
+    dotenv: "npm:^16.5.0"
+    eslint: "npm:^9.27.0"
+    eslint-config-prettier: "npm:^10.1.5"
+    eslint-plugin-prettier: "npm:^5.4.0"
+    execa: "npm:^9.5.3"
+    hardhat: "npm:^2.24.0"
+    prettier: "npm:^3.5.3"
+    rimraf: "npm:^6.0.1"
+    ts-node: "npm:^10.9.2"
+    tsup: "npm:^8.5.0"
+    typescript: "npm:^5.8.3"
+    typescript-eslint: "npm:^8.32.1"
+    viem: "npm:^2.30.0"
+    vitest: "npm:^3.1.4"
+    wait-on: "npm:^8.0.3"
+  languageName: unknown
+  linkType: soft
+
 "@cspotcode/source-map-support@npm:^0.8.0":
   version: 0.8.1
   resolution: "@cspotcode/source-map-support@npm:0.8.1"
@@ -2224,32 +2250,6 @@ __metadata:
   checksum: 10c0/157cbc59b2430ae9a90034a5f3a1b398b6738bf510f713edc4d4e45e169bc514d3d99dd34d8d01ca7ae7830b5b8b537e46ae8f3c8f932371b0875c0151d7ec91
   languageName: node
   linkType: hard
-
-"credit-coop-sdk@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "credit-coop-sdk@workspace:."
-  dependencies:
-    "@eslint/js": "npm:^9.27.0"
-    "@nomicfoundation/hardhat-viem": "npm:^2.0.6"
-    "@types/wait-on": "npm:^5.3.4"
-    "@vitest/coverage-v8": "npm:^3.1.4"
-    dotenv: "npm:^16.5.0"
-    eslint: "npm:^9.27.0"
-    eslint-config-prettier: "npm:^10.1.5"
-    eslint-plugin-prettier: "npm:^5.4.0"
-    execa: "npm:^9.5.3"
-    hardhat: "npm:^2.24.0"
-    prettier: "npm:^3.5.3"
-    rimraf: "npm:^6.0.1"
-    ts-node: "npm:^10.9.2"
-    tsup: "npm:^8.5.0"
-    typescript: "npm:^5.8.3"
-    typescript-eslint: "npm:^8.32.1"
-    viem: "npm:^2.30.0"
-    vitest: "npm:^3.1.4"
-    wait-on: "npm:^8.0.3"
-  languageName: unknown
-  linkType: soft
 
 "cross-spawn@npm:^7.0.3, cross-spawn@npm:^7.0.6":
   version: 7.0.6
