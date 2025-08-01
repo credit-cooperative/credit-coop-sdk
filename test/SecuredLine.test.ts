@@ -5,6 +5,7 @@ import {
   RPC,
   TEST_SECRET,
   USDC_TOKEN_ADDRESS,
+  TEST_ADDRESS,
 } from "./constants";
 
 const initLine = () => {
@@ -112,5 +113,92 @@ describe("SecuredLine", () => {
     const liquidity = await line.getPositionLiquidity(positionId);
     expect(liquidity.availableAssets).toBe(49_997_991_919n); // 49,997.99 USDC
     expect(liquidity.claimableInterest).toBe(285_932_389n); // 285.93 USDC
+  });
+
+  it("returns borrower address", async () => {
+    const line = initLine();
+    const borrower = await line.borrower();
+    expect(borrower).toBe(TEST_ADDRESS);
+  });
+
+  it("returns counts tuple", async () => {
+    const line = initLine();
+    const counts = await line.counts();
+    expect(Array.isArray(counts)).toBe(true);
+    expect(counts.length).toBe(2);
+  });
+
+  it("returns first position id using ids", async () => {
+    const line = initLine();
+    const [openCount] = await line.counts();
+    if (openCount > 0n) {
+      const first = await line.ids(0n);
+      expect(typeof first).toBe("bigint");
+    }
+  });
+
+  it("available matches getPositionLiquidity", async () => {
+    const line = initLine();
+    const positionId = 8n;
+    const [avail, claim] = await line.available(positionId);
+    const liquidity = await line.getPositionLiquidity(positionId);
+    expect(avail).toBe(liquidity.availableAssets);
+    expect(claim).toBe(liquidity.claimableInterest);
+  });
+
+  it("returns escrow address", async () => {
+    const line = initLine();
+    const addr = await line.escrow();
+    expect(addr).toMatch(/^0x[a-fA-F0-9]{40}$/);
+  });
+
+  it("returns fee structure", async () => {
+    const line = initLine();
+    const fees = await line.getFees();
+    expect(typeof fees.originationFee).toBe("number");
+  });
+
+
+  it("returns rates tuple", async () => {
+    const line = initLine();
+    const rates = await line.getRates(8n);
+    expect(rates.length).toBe(2);
+  });
+
+  it("returns interestAccrued", async () => {
+    const line = initLine();
+    const interest = await line.interestAccrued(8n);
+    expect(typeof interest).toBe("bigint");
+  });
+
+  it("rates returns tuple", async () => {
+    const line = initLine();
+    const r = await line.rates(0n);
+    expect(r.length).toBe(3);
+  });
+
+  it("reads spigot address", async () => {
+    const line = initLine();
+    const addr = await line.spigot();
+    expect(addr).toMatch(/^0x[a-fA-F0-9]{40}$/);
+  });
+
+  it("reads status", async () => {
+    const line = initLine();
+    const status = await line.status();
+    expect(typeof status).toBe("number");
+  });
+
+
+  it("reads tradeable", async () => {
+    const line = initLine();
+    const value = await line.tradeable(USDC_TOKEN_ADDRESS);
+    expect(typeof value).toBe("bigint");
+  });
+
+  it("reads unused", async () => {
+    const line = initLine();
+    const value = await line.unused(USDC_TOKEN_ADDRESS);
+    expect(typeof value).toBe("bigint");
   });
 });

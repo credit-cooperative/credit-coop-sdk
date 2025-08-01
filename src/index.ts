@@ -210,4 +210,62 @@ export class SecuredLine {
       claimableInterest: available[1],
     };
   }
+
+  // ------------------------
+  // Read-only contract calls
+  // ------------------------
+
+  async available(positionId: bigint) {
+    return this.contract.read.available([positionId]);
+  }
+
+  async borrower() {
+    return this.contract.read.borrower();
+  }
+
+  async counts() {
+    return this.contract.read.counts();
+  }
+
+  async escrow() {
+    return this.contract.read.escrow();
+  }
+
+
+  async getFees() {
+    return this.contract.read.getFees();
+  }
+
+  async getRates(id: bigint) {
+    return this.contract.read.getRates([id]);
+  }
+
+  async ids(index: bigint) {
+    return this.contract.read.ids([index]);
+  }
+
+  async interestAccrued(id: bigint) {
+    return this.contract.read.interestAccrued([id]);
+  }
+
+
+  async rates(index: bigint) {
+    return this.contract.read.rates([index]);
+  }
+
+  async spigot() {
+    return this.contract.read.spigot();
+  }
+
+  async status() {
+    return this.contract.read.status();
+  }
+
+  async tradeable(token: Hex) {
+    return this.contract.read.tradeable([token]);
+  }
+
+  async unused(token: Hex) {
+    return this.contract.read.unused([token]);
+  }
 }
