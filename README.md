@@ -2,14 +2,14 @@
 
 ## Introduction
 
-A type‑safe JavaScript / TypeScript client for interacting with Credit Coop’s on‑chain credit infrastructure.
+A type‑safe JavaScript / TypeScript client for interacting with Credit Coop’s on‑chain credit infrastructure.
 
 ## Requirements
 
 | Tool        | Version |
 | ----------- | ------- |
-| Node        | ≥ 22    |
-| TypeScript  | ≥ 5     |
+| Node        | ≥ 22    |
+| TypeScript  | ≥ 5     |
 
 ## Installation
 
@@ -21,7 +21,7 @@ yarn add @credit-cooperative/credit-coop-sdk
 npm i @credit-cooperative/credit-coop-sdk
 ```
 
-## Quick Start
+## Quick Start
 
 ```ts
 import { SecuredLine } from "@credit-cooperative/credit-coop-sdk";
