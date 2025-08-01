@@ -53,3 +53,25 @@ async function main() {
   console.log('Credit line now has principal of ', principal);
 }
 ```
+
+## View Methods
+
+All read-only functions from the SecuredLine smart contract are exposed on the
+`SecuredLine` class using the same names as their Solidity counterparts.  Each
+method simply forwards the call to the underlying contract and returns the
+result.
+
+```ts
+await line.admin();                        // contract admin address
+await line.available(1n);                  // [availableAssets, claimableInterest]
+await line.tradeable("0x…token");         // amount that can be traded
+```
+
+### Full list
+
+`admin`, `available`, `borrower`, `claimableEarlyWithdrawalFees`, `counts`,
+`escrow`, `getCreditPosition`, `getFees`, `getLineFactory`, `getRates`, `ids`,
+`interestAccrued`, `isServicer`, `mutualConsentProposals`, `nextInQ`, `nonce`,
+`otcSwapServicer`, `proposalCount`, `protocolTreasury`, `rates`,
+`recoveryEnabled`, `spigot`, `status`, `swapTarget`, `tokenContract`,
+`tradeable`, `unused`.
