@@ -215,20 +215,12 @@ export class SecuredLine {
   // Read-only contract calls
   // ------------------------
 
-  async admin() {
-    return this.contract.read.admin();
-  }
-
   async available(positionId: bigint) {
     return this.contract.read.available([positionId]);
   }
 
   async borrower() {
     return this.contract.read.borrower();
-  }
-
-  async claimableEarlyWithdrawalFees(tokenId: bigint) {
-    return this.contract.read.claimableEarlyWithdrawalFees([tokenId]);
   }
 
   async counts() {
@@ -239,16 +231,9 @@ export class SecuredLine {
     return this.contract.read.escrow();
   }
 
-  async getCreditPosition(tokenId: bigint) {
-    return this.contract.read.getCreditPosition([tokenId]);
-  }
 
   async getFees() {
     return this.contract.read.getFees();
-  }
-
-  async getLineFactory() {
-    return this.contract.read.getLineFactory();
   }
 
   async getRates(id: bigint) {
@@ -263,40 +248,9 @@ export class SecuredLine {
     return this.contract.read.interestAccrued([id]);
   }
 
-  async isServicer(addr: Hex) {
-    return this.contract.read.isServicer([addr]);
-  }
-
-  async mutualConsentProposals(id: Hex) {
-    return this.contract.read.mutualConsentProposals([id]);
-  }
-
-  async nextInQ() {
-    return this.contract.read.nextInQ();
-  }
-
-  async nonce() {
-    return this.contract.read.nonce();
-  }
-
-  async otcSwapServicer() {
-    return this.contract.read.otcSwapServicer();
-  }
-
-  async proposalCount() {
-    return this.contract.read.proposalCount();
-  }
-
-  async protocolTreasury() {
-    return this.contract.read.protocolTreasury();
-  }
 
   async rates(index: bigint) {
     return this.contract.read.rates([index]);
-  }
-
-  async recoveryEnabled() {
-    return this.contract.read.recoveryEnabled();
   }
 
   async spigot() {
@@ -305,14 +259,6 @@ export class SecuredLine {
 
   async status() {
     return this.contract.read.status();
-  }
-
-  async swapTarget() {
-    return this.contract.read.swapTarget();
-  }
-
-  async tokenContract() {
-    return this.contract.read.tokenContract();
   }
 
   async tradeable(token: Hex) {
